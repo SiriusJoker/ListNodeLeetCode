@@ -1,0 +1,91 @@
+// ListNodeApp.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+
+//Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* next) : val(x), next(next) {}
+};
+
+ class Solution {
+public:
+
+    // https://leetcode.com/problems/add-two-numbers/description/
+
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int num1 = l1->val;
+        int num2 = l2->val;
+        int sum = num1 + num2;
+        ListNode* l3 = new ListNode(sum % 10);
+        sum /= 10;
+        ListNode* l4 = l3;
+        while (l1->next != nullptr || l2->next != nullptr || sum > 0) {
+            if (l1->next != nullptr && l2->next != nullptr) {
+                l1 = l1->next;
+                l2 = l2->next;
+                sum += l1->val + l2->val;
+                l3->next = new ListNode(sum % 10);
+            }
+            else {
+                if (l2->next != nullptr) {
+                    l2 = l2->next;
+                    sum += l2->val;
+                    l3->next = new ListNode(sum % 10);
+                }
+                else if (l1->next != nullptr) {
+                    l1 = l1->next;
+                    sum += l1->val;
+                    l3->next = new ListNode(sum % 10);
+                }
+                else {
+                    l3->next = new ListNode(sum % 10);
+                }
+            }
+            l3 = l3->next;
+            sum /= 10;
+        }
+        return l4;
+    }
+};
+int main()
+{
+    ListNode* l1 = new ListNode(2);
+    ListNode* l2 = l1;
+    l1->next = new ListNode(4);
+    l1 = l1->next;
+    l1->next = new ListNode(3);
+
+    ListNode* l3 = new ListNode(5);
+    ListNode* l4 = l3;
+    l3->next = new ListNode(6);
+    l3 = l3->next;
+    l3->next = new ListNode(4);
+    l3 = l3->next;
+    l3->next = new ListNode(9);
+
+    Solution s;
+    ListNode* res=s.addTwoNumbers(l2, l4);
+    int num1 = res->val;
+    for (int i = 10; res->next != nullptr; i *= 10) {
+        res = res->next;
+        num1 += res->val * i;
+    }
+    std::cout << "=" << "\n";
+    std::cout << num1 << "\n";
+}
+
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
