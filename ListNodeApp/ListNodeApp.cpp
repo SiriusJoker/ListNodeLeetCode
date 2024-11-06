@@ -18,13 +18,17 @@ public:
     // https://leetcode.com/problems/add-two-numbers/description/
 
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        // Defining the 1st place number in the result list as the sum of 1st place numbers of both input lists
         int num1 = l1->val;
         int num2 = l2->val;
         int sum = num1 + num2;
         ListNode* l3 = new ListNode(sum % 10);
-        sum /= 10;
+        sum /= 10;  // the sum of numbers may exceed 9, so we carry over 1 to add to the next place if needed
         ListNode* l4 = l3;
         while (l1->next != nullptr || l2->next != nullptr || sum > 0) {
+
+            // First case: when both lists have a number at the n-th place, we sum these numbers.
+
             if (l1->next != nullptr && l2->next != nullptr) {
                 l1 = l1->next;
                 l2 = l2->next;
@@ -32,6 +36,9 @@ public:
                 l3->next = new ListNode(sum % 10);
             }
             else {
+
+                // Second and third case: if only one list has a number at the n-th place, we add it along with any carry-over of 1 from the previous sum.
+
                 if (l2->next != nullptr) {
                     l2 = l2->next;
                     sum += l2->val;
@@ -43,6 +50,9 @@ public:
                     l3->next = new ListNode(sum % 10);
                 }
                 else {
+
+                    // last case: if neither list has a number at the n-th place but we have a carry-over of 1, we write 1 to the result list.
+
                     l3->next = new ListNode(sum % 10);
                 }
             }
