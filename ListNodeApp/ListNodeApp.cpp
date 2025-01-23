@@ -25,7 +25,20 @@ struct ListNode {
         else
             return nullptr;
     }
+    
 };
+ListNode* depthSearchRec(ListNode* root, int value)
+{
+    if (root->val == value)
+        return root;
+    else
+    {
+        if (root->next != nullptr)
+            return depthSearchRec(root->next, value);
+        else
+            return nullptr;
+    }
+}
 
  class Solution {
 public:
@@ -111,6 +124,15 @@ int main()
         std::cout << "l2->find(3) != nullptr" << std::endl;
     if (l2->find(21) == nullptr)
         std::cout << "l2->find(21) = nullptr" << std::endl;
+
+    if (depthSearchRec(l2,2) != nullptr)
+        std::cout << "depthSearchRec(l2,2) != nullptr" << std::endl;
+    if (depthSearchRec(l2, 4) != nullptr)
+        std::cout << "depthSearchRec(l2, 4) != nullptr" << std::endl;
+    if (depthSearchRec(l2, 3) != nullptr)
+        std::cout << "depthSearchRec(l2, 3) != nullptr" << std::endl;
+    if (depthSearchRec(l2, 1) == nullptr)
+        std::cout << "depthSearchRec(l2, 1) == nullptr" << std::endl;
     
 }
 
