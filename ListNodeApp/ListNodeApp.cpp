@@ -10,6 +10,21 @@ struct ListNode {
     ListNode() : val(0), next(nullptr) {}
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode* next) : val(x), next(next) {}
+    ListNode* find(int value)
+    {
+        ListNode* currentNode = this;
+        while (currentNode->next != nullptr)
+        {
+            if (currentNode->val == value)
+                return currentNode;
+            else
+                currentNode = currentNode->next;
+        }
+        if (currentNode->val == value)
+            return currentNode;
+        else
+            return nullptr;
+    }
 };
 
  class Solution {
@@ -87,6 +102,16 @@ int main()
     }
     std::cout << "=" << "\n";
     std::cout << num1 << "\n";
+
+    if (l2->find(2) != nullptr)
+        std::cout << "l2->find(2) != nullptr" << std::endl;
+    if (l2->find(4) != nullptr)
+        std::cout << "l2->find(4) != nullptr" << std::endl;
+    if (l2->find(3) != nullptr)
+        std::cout << "l2->find(3) != nullptr" << std::endl;
+    if (l2->find(21) == nullptr)
+        std::cout << "l2->find(21) = nullptr" << std::endl;
+    
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
