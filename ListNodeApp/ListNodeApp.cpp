@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-
+#include "TreeNode.h"
 //Definition for singly-linked list.
 struct ListNode {
     int val;
@@ -88,6 +88,31 @@ public:
             sum /= 10;
         }
         return l4;
+    }
+
+    //876. Middle of the Linked List
+    //    Given the head of a singly linked list, return the middle node of the linked list.
+
+    //    If there are two middle nodes, return the second middle node.
+    //https://leetcode.com/problems/middle-of-the-linked-list/description/
+
+    ListNode* middleNode(ListNode* head) {
+        ListNode* temp = head;
+        int counter = 1;
+        while (temp->next != nullptr)
+        {
+            temp = temp->next;
+            counter++;
+        }
+        int index = counter / 2 + 1;
+        counter = 1;
+        temp = head;
+        while (counter < index)
+        {
+            temp = temp->next;
+            counter++;
+        }
+        return temp;
     }
 };
 int main()
